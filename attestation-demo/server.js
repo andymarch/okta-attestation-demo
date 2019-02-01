@@ -67,9 +67,9 @@ app.get("/attestation", oidc.ensureAuthenticated(), (req,res) => {
       acr_values: 'urn:okta:app:mfa:attestation',
       nonce: oauth_nonce,
       scope: 'openid',
-      state: 'contributions',
+      state: 'demo',
       login_hint: login_hint,
-      redirect_uri: process.env.OKTA_REDIRECT_URI
+      redirect_uri: "http://localhost:"+PORT+"/attestation/callback"
   }
 
   var signedRequest = nJwt.create(request,process.env.OKTA_CLIENT_SECRET);
@@ -79,7 +79,8 @@ app.get("/attestation", oidc.ensureAuthenticated(), (req,res) => {
   '?request='+signedRequest.compact());
 });
   
-app.get("/attestation/response", oidc.ensureAuthenticated(), (req,res) => {
+app.get("/attestation/callback", oidc.ensureAuthenticated(), (req,res) => {
+  console.log(req.params);
   res.render("attestation",{ user: req.userinfo })
 });
 

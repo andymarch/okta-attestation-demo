@@ -9,6 +9,23 @@ block body
       li Your First Name is: #{user.given_name}
       li Your Last Name is: #{user.family_name}
 
+    h2.text-center Attestation Token
+    p#tokenValue
+
+
+    script.
+      var oDiv = document.getElementById("tokenValue");
+      oDiv.innerText = JSON.stringify(parseJwt(window.location.hash.split('=')[1].split('&')[0]),null,2)
+
+      function parseJwt(token) {
+        if (token != null) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
+        } else {
+            logEvent('event occured: a invalid or empty token was parsed',5);
+        }
+      };
 
     p.
       If you'd like to logout, please #[a(href="/logout") click here].
