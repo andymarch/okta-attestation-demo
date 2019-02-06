@@ -80,7 +80,6 @@ app.get("/attestation", oidc.ensureAuthenticated(), (req,res) => {
 });
   
 app.get("/attestation/callback", oidc.ensureAuthenticated(), (req,res) => {
-  console.log(req.params);
   res.render("attestation",{ user: req.userinfo })
 });
 
