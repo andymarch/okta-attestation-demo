@@ -1,13 +1,24 @@
 extends base.pug
 
 block body
-  h1.text-center Welcome to the Example App!
 
-  .jumbotron
-    p.
-      Thanks for checking out this super simple Okta sample app.  If you login
-      below, you'll be taken to an admin panel that is only accessible for
-      authenticated users.
+  .content
+    .section#preamble
+      p.
+        This demonstration highlights the OIDC attestation behaviour of Okta.
+        <br/>
+        This feature allows for the enforcement and inspection of MFA for critical actions in your custom applications.
 
-    p.
-      Please #[a(href="/login") login] to continue.
+    .section#flags
+      i.fas.fa-flag(aria-hidden='true')
+      h2.
+        Flags
+      p.
+        The following feature flags are required to be enabled on your tenant for this demonstration:
+      ul#flaglist
+        li.
+          MFA_ATTESTATION
+
+    .section#nextAction
+      a(href="/login")
+        button(type="button") LOGIN

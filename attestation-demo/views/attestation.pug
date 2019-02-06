@@ -1,17 +1,57 @@
 extends base.pug
 
 block body
-  h1.text-center Attestation
 
-  .jumbotron
-    ul
-      li Your Email Address is: #{user.preferred_username}
-      li Your First Name is: #{user.given_name}
-      li Your Last Name is: #{user.family_name}
+  .content
+    .section#useridentity
+      i.fas.fa-user(aria-hidden='true')
+      h2.
+        Your Identity
+      div
+        h4.
+          Email Address
+        p. 
+          #{user.preferred_username}
+        h4.
+          First Name
+        p. 
+          #{user.given_name}
+        h4. 
+          Last Name
+        p.
+          #{user.family_name}
 
-    h2.text-center Attestation Token
-    p#tokenValue
+    .section#attestationToken
+      i.fas.fa-check-circle(aria-hidden='true')
+      h2.
+        Your Attestation
+      div#tokenContainer
+        div#tokenExplainer
+          p.
+            <br/>
+            Subject<br/>
+            Version<br/>
+            Issuer<br/>
+            Audience<br/>
+            Issued At<br/>
+            Expires<br/>
+            JWT ID<br/>
+            Authentication Methods References
+            <br/><br/><br/><br/>
+            Authentication Context Class Reference<br/>
+            IDP<br/>
+            Nonce<br/>
+            Authentication Time<br/>
+        div#token
+          p#tokenValue
+    
+    .section#attestation
+      a(href="/attestation")
+        button(type="button") ATTESTATION
 
+    .section#logout
+      a(href="/logout")
+        button(type="button") LOGOUT
 
     script.
       var oDiv = document.getElementById("tokenValue");
@@ -26,6 +66,3 @@ block body
             logEvent('event occured: a invalid or empty token was parsed',5);
         }
       };
-
-    p.
-      If you'd like to logout, please #[a(href="/logout") click here].

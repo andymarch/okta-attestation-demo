@@ -1,16 +1,30 @@
 extends base.pug
 
 block body
-  h1.text-center User Dashboard
 
-  .jumbotron
-    ul
-      li Your Email Address is: #{user.preferred_username}
-      li Your First Name is: #{user.given_name}
-      li Your Last Name is: #{user.family_name}
+  .content
+    .section#useridentity
+      i.fas.fa-user(aria-hidden='true')
+      h2.
+        Your Identity
+      div
+        h4.
+          Email Address
+        p. 
+          #{user.preferred_username}
+        h4.
+          First Name
+        p. 
+          #{user.given_name}
+        h4. 
+          Last Name
+        p.
+          #{user.family_name}
+    
+    .section#attestation
+      a(href="/attestation")
+        button(type="button") ATTESTATION
 
-    p.
-      To perform an attestation #[a(href="/attestation") click here].
-
-    p.
-      If you'd like to logout, please #[a(href="/logout") click here].
+    .section#logout
+      a(href="/logout")
+        button(type="button") LOGOUT
