@@ -29,8 +29,9 @@ let oidc = new ExpressOIDC({
   issuer: process.env.OKTA_AUTHZ_SERVER,
   client_id: process.env.OKTA_CLIENT_ID,
   client_secret: process.env.OKTA_CLIENT_SECRET,
+  appBaseUrl: process.env.OKTA_REDIRECT_URI,
   redirect_uri: process.env.OKTA_REDIRECT_URI,
-  routes: { callback: { defaultRedirect: "/dashboard" } },
+  routes: { loginCallback: { afterCallback: "/dashboard" } },
   scope: 'openid profile'
 });
 
@@ -42,12 +43,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/dashboard", oidc.ensureAuthenticated(), (req, res) => {
-  res.render("dashboard", { user: req.userinfo });
+  res.render("dashboard", {
+     user: req.userContext.userinfo,
+     token: req.userContext.tokens.id_token
+    });
 });
 
 app.get("/attestation", oidc.ensureAuthenticated(), (req,res) => {
-  var login_hint = req.userinfo.preferred_username;
-  console.log("user is "+login_hint);
+  var login_hint = req.userContext.userinfo.preferred_username;
   var oauth_nonce = "";
 
   //generate a reasonable nonce
@@ -80,7 +83,7 @@ app.get("/attestation", oidc.ensureAuthenticated(), (req,res) => {
 });
   
 app.get("/attestation/callback", oidc.ensureAuthenticated(), (req,res) => {
-  res.render("attestation",{ user: req.userinfo })
+  res.render("attestation",{ user: req.userContext.userinfo })
 });
 
 app.get("/logout", (req, res) => {
@@ -96,4 +99,3 @@ oidc.on("ready", () => {
 oidc.on("error", err => {
   console.error(err);
 });
-

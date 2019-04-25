@@ -6,11 +6,11 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@okta/oidc-middleware": "0.0.6",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "njwt": "^0.4.0",
-    "pug": "^2.0.0-rc.4"
+    "@okta/oidc-middleware": "2.0.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "njwt": "^1.0.0",
+    "pug": "^2.0.3"
   }
 }

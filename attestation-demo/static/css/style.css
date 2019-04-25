@@ -34,7 +34,6 @@ html, body, .viewport {
 
 .content{
     margin-top: 50px;
-    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
@@ -98,4 +97,8 @@ button {
 
 #tokenExplainer{
     border-right: 2px solid #d2d2d6
+}
+
+.acr{
+    color: #e22866
 }
